@@ -1,0 +1,30 @@
+
+version: '2'
+
+services:
+  db:
+    image: mysql:8.0
+    networks:
+      - mybase
+    environment:
+      MYSQL_ROOT_PASSWORD: 950nt30202
+      MYSQL_USER: 20203tn059
+      MYSQL_PASSWORD: 950nt30202
+      MYSQL_DATABASE: recuperacion_no_extra
+    volumes:
+      - ./recupera-data:/var/lib/mysql
+    ports:
+      - "8090:3306"
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - mybase
+    depends_on:
+      - db
+networks:
+  mybase:
+    driver: bridge
